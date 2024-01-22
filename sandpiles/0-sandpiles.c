@@ -3,22 +3,47 @@
 
 #include "sandpiles.h"
 
+void print_sandpiles(int grid1[3][3], int grid2[3][3]);
 void print_grid(int grid[3][3]);
 bool is_stable(int grid[3][3]);
 void topple(int grid[3][3]);
 
 void sandpiles_sum(int grid1[3][3], int grid2[3][3]) {
-    // Sum the sandpiles
+    // Afficher les sabliers avant la somme
+    print_sandpiles(grid1, grid2);
+
+    // Somme des sabliers
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
             grid1[i][j] += grid2[i][j];
         }
     }
 
-    // Topple until stable
+    // Afficher la grille après la somme
+    printf("=\n");
+    print_grid(grid1);
+
+    // Écrouler jusqu'à stabilisation
     while (!is_stable(grid1)) {
-        print_grid(grid1);
         topple(grid1);
+        print_grid(grid1);
+    }
+}
+
+void print_sandpiles(int grid1[3][3], int grid2[3][3]) {
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            printf("%d ", grid1[i][j]);
+        }
+        if (i == 1) {
+            printf("+ ");
+        } else {
+            printf("  ");
+        }
+        for (int j = 0; j < 3; ++j) {
+            printf("%d ", grid2[i][j]);
+        }
+        printf("\n");
     }
 }
 
